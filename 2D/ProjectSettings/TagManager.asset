@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Horizontal Wall
+  - Vertical Wall
+  - Paddle
+  - Block
+  - Lost
   layers:
   - Default
   - TransparentFX
