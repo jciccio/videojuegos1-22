@@ -49,6 +49,8 @@ public class Ball : MonoBehaviour
     }
 
     void OnPlayerLost(){
+        //GameManager.instance.Lives = GameManager.instance.Lives - 1; 
+        GameManager.instance.UpdateLives(GameManager.instance.Lives - 1);
         _playing = false;
     }
 

@@ -27,7 +27,8 @@ public class LevelLoader : MonoBehaviour
             for(int j = 0 ; j < line[i].Length; j++){
                 if(line[i][j] == 'X'){
                     GameObject element = GameObject.Instantiate(Crate);
-                    element.transform.position = position;
+                    //element.transform.position = position;
+                    StartCoroutine(AnimateToPosition(element,position));
                     element.name = "Crate "+ count;
                     count++;
                     element.transform.SetParent(BlocksContainer);
@@ -37,6 +38,15 @@ public class LevelLoader : MonoBehaviour
             position.y += yMovement;
             position.x = StartingPoint.position.x;
         }
+    }
+
+    IEnumerator AnimateToPosition(GameObject obj, Vector2 position){
+        Transform objTransform = obj.transform;
+        while(Vector2.Distance(objTransform.position, position) > 0.1f){
+            objTransform.position = Vector2.Lerp(objTransform.position, position, Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 
     public string LoadLevel (string path){
