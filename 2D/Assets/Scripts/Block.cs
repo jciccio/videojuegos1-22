@@ -5,12 +5,12 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
 
-    private ParticleSystem particles;
+    [SerializeField] private ParticleSystem particles;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D boxCollider;
 
     public void Awake(){
-        particles = GetComponentInChildren<ParticleSystem>();
+      //  particles = GetComponentInChildren<ParticleSystem>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
