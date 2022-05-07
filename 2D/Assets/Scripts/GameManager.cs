@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     }
 
     void Update(){
-        Debug.Log(CratesContainer.childCount);
         if(CratesContainer.childCount == 0){
             Debug.Log("Ganó :)");
         }

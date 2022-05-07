@@ -18,6 +18,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private float xVelocity;
     [SerializeField] private float yVelocity;
 
+    [SerializeField] private Vector2 direction;
+
+    [SerializeField] private float xMultiplier;
+
+    float collisionFloat = 0.47f;
+
     void Start()
     {
         _ball = this.gameObject;
@@ -42,7 +48,7 @@ public class Ball : MonoBehaviour
     }
 
     void LaunchOnClick(){
-        if(Input.GetMouseButtonDown(0)){
+        if(!_playing && Input.GetMouseButtonDown(0)){
             _playing = true;
             _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
         }
@@ -54,8 +60,57 @@ public class Ball : MonoBehaviour
         _playing = false;
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        Debug.Log(collision.gameObject.name);
+    void OnCollisionEnter2D(Collision2D other){
+        string collisionTag = other.gameObject.tag;
+        
+        //Debug.Log(other.gameObject.name + " xCollisionPoint " + xCollisionPoint);
+        if(collisionTag == Constants.HORIZONTAL_WALL){
+            OnHorizontalCollision();            
+        }
+        if(collisionTag == Constants.VERTICAL_WALL){
+            OnVerticalCollision();
+        }
+        if(collisionTag == Constants.PADDLE){
+            OnPaddleCollision(other);
+        }
+        if(collisionTag == Constants.BLOCK){
+            OnBlockCollision(other);
+        }
+    }
+
+    void OnBlockCollision(Collision2D block){
+        Vector2 collision = block.contacts[0].point;
+        float xColPoint = collision.x - block.transform.position.x;
+        float yColPoint = collision.y - block.transform.position.y;
+        // Debug.Log("Block collision X: "+ xColPoint + "Block collision Y: " + yColPoint);
+        if(Mathf.Abs(yColPoint) > collisionFloat){
+            yVelocity *= -1;
+            _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        }
+        else if (Mathf.Abs(xColPoint) > collisionFloat){
+            xVelocity *= -1;
+            _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        }
+    }
+
+    void OnHorizontalCollision(){
+        yVelocity *= -1;
+        _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        direction = _ballRigidbody.velocity ;
+    } 
+
+    void OnVerticalCollision(){
+        xVelocity *= -1;
+        _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        direction = _ballRigidbody.velocity ;
+    }
+
+    void OnPaddleCollision(Collision2D other){
+        float xCollisionPoint = other.contacts[0].point.x - other.transform.position.x;
+        yVelocity *= -1;
+        xVelocity = xCollisionPoint * xMultiplier;
+        _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        direction = _ballRigidbody.velocity ;
     }
 
     void OnTriggerEnter2D(Collider2D collider){

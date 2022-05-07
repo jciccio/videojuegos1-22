@@ -792,11 +792,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1644233090}
   - component: {fileID: 1644233089}
-  - component: {fileID: 1644233091}
   - component: {fileID: 1644233092}
+  - component: {fileID: 1644233091}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -866,8 +866,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &1644233091
-PolygonCollider2D:
+--- !u!61 &1644233091
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -889,15 +889,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.49841508, y: 0.25398552}
-      - {x: 0.11650242, y: 0.49447218}
-      - {x: 0.0121429, y: 0.49999997}
-      - {x: -0.085199274, y: 0.51221085}
-      - {x: -0.5, y: 0.3109218}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &1644233092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,7 +950,7 @@ GameObject:
   - component: {fileID: 1654766085}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Vertical Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1080,9 +1074,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715128527}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1134,7 +1128,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1187,8 +1181,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paddle: {fileID: 1644233092}
-  xVelocity: 2
-  yVelocity: -8
+  xVelocity: 0
+  yVelocity: 5
+  direction: {x: 0, y: 0}
+  xMultiplier: 4
 --- !u!1 &1858397532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1299,7 @@ GameObject:
   - component: {fileID: 1861798869}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Vertical Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1412,7 +1408,7 @@ GameObject:
   - component: {fileID: 2143993997}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Horizontal Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

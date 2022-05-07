@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float horizontalVelocity = 5f;
-    [SerializeField] float verticalVelocity = 20f;
     [SerializeField] float forceX = 1000f;
 
     private Rigidbody2D physics;

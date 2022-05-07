@@ -42,7 +42,7 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator AnimateToPosition(GameObject obj, Vector2 position){
         Transform objTransform = obj.transform;
-        while(Vector2.Distance(objTransform.position, position) > 0.1f){
+        while(obj != null && Vector2.Distance(objTransform.position, position) > 0.1f){
             objTransform.position = Vector2.Lerp(objTransform.position, position, Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
