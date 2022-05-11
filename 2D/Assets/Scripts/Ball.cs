@@ -91,6 +91,7 @@ public class Ball : MonoBehaviour
             xVelocity *= -1;
             _ballRigidbody.velocity = new Vector2(xVelocity, yVelocity);
         }
+        AudioManager.instance.PlaySfx(Constants.BOX_BREAK_SFX);
     }
 
     void OnHorizontalCollision(){

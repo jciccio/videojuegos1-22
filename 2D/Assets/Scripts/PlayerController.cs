@@ -32,4 +32,9 @@ public class PlayerController : MonoBehaviour
             physics.AddForce((Vector2.up * 5f), ForceMode2D.Impulse);
         }
     }
+
+    private void OnDrawGizmos(){
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 2f);
+    }
 }

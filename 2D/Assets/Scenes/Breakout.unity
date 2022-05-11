@@ -463,6 +463,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788962225}
   m_CullTransparentMesh: 1
+--- !u!1 &819331967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 819331969}
+  - component: {fileID: 819331968}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &819331968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819331967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54494044255977a4ea4bfbd27795244e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sfx:
+  - Name: Box Break
+    Clip: {fileID: 8300000, guid: ea1a613fb9f8b494eb3bc03f88b46941, type: 3}
+    Source: {fileID: 0}
+    Volume: 1
+    Pitch: 1.3
+    Loop: 0
+  Music:
+  - Name: Music Track 1
+    Clip: {fileID: 8300000, guid: 3b401280f5e3be5459b1da452385e004, type: 3}
+    Source: {fileID: 0}
+    Volume: 0.013
+    Pitch: 1
+    Loop: 1
+--- !u!4 &819331969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819331967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.756736, y: 4.9355216, z: -0.48789677}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &821338152
 GameObject:
   m_ObjectHideFlags: 0

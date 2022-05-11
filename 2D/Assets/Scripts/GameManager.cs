@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     void Start(){
         Lives = 3;
         LivesText.text = "Lives: "+ Lives;
+        AudioManager.instance.PlayMusic(Constants.GAME_MUSIC);
     }
 
     public void UpdateLives(int lives){
