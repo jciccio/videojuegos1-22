@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public float gravity = 1f;
     public float fallMultiplier = 5f;
     public float linearDrag;
+    public float jumpDelay = 0.2f;
+    public float jumpTimer;
+
+    public Vector3 colliderOffset;
 
     [Header("Ground")]
     public bool onGround = false;
@@ -24,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Read Only")]
     public float directionForce;
+    public bool jumpPressed = false;
 
 
     // Start is called before the first frame update
@@ -33,6 +38,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+  
+
+    void ModifyPhysics(){
+        if(!jumping){ // Si está en el piso
+            physics.gravityScale = 0;
+        }
+        else{
+            physics.gravityScale = gravity;
+            physics.drag = linearDrag * 0.15f;
+            if(physics.velocity.y < 0){
+                physics.gravityScale = gravity * fallMultiplier;
+            }
+            else if(physics.velocity.y > 0 && !jumpPressed){
+                physics.gravityScale = gravity * (fallMultiplier/2);
+            }
+        }
+    }
+
     void Update()
     {
         if(directionForce > 0){
@@ -48,34 +71,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void ModifyPhysics(){
-        if(!jumping){ // Si está en el piso
-            physics.gravityScale = 0;
-        }
-        else{
-            physics.gravityScale = gravity;
-            physics.drag = linearDrag * 0.15f;
-        }
-    }
-
     void FixedUpdate(){
         Quaternion targetRotation = Quaternion.Euler(direction);
         this.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 5f);
         onGround = Physics2D.Raycast(transform.position, Vector2.down, groundLength, groundLayer);
-        jumping = !Physics2D.Raycast(transform.position, Vector2.down, groundLength, groundLayer);
+        jumping = !Physics2D.Raycast(transform.position+colliderOffset, Vector2.down, groundLength, groundLayer) ||
+        !Physics2D.Raycast(transform.position-colliderOffset, Vector2.down, groundLength, groundLayer);
         physics.AddForce(new Vector2(forceX* directionForce * Time.fixedDeltaTime, 0));
+        if(jumpTimer > Time.time && !jumping){
+            Jump();
+        }
         ModifyPhysics();
     }
 
     public void Jump(InputAction.CallbackContext context){
-        Debug.Log("Jump: " + context);
         if(context.performed){
-            physics.AddForce((Vector2.up * 5f), ForceMode2D.Impulse); // (0,1)
+            if(!jumping){
+                jumpTimer = Time.time + jumpDelay;
+                jumpPressed = true;
+            }
+        }
+        else if (context.canceled){
+            jumpPressed = false;
         }
     }
 
+    public void Jump(){
+        physics.velocity = new Vector2(physics.velocity.x, 0);
+        physics.AddForce((Vector2.up * jumpSpeed), ForceMode2D.Impulse); // (0,1)
+    }
+
     public void RunControl(InputAction.CallbackContext context){
-        Debug.Log("Run Control " + context.phase + " value: " + context.ReadValue<float>());
+       // Debug.Log("Run Control " + context.phase + " value: " + context.ReadValue<float>());
         if(context.performed){ 
             directionForce = context.ReadValue<float>();
         }
@@ -86,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos(){
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundLength);
+        Gizmos.DrawLine(transform.position + colliderOffset, transform.position + colliderOffset + Vector3.down * groundLength);
+        Gizmos.DrawLine(transform.position - colliderOffset, transform.position - colliderOffset+ Vector3.down * groundLength);
     }
 }
