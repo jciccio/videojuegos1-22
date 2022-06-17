@@ -15,6 +15,7 @@ Shader "CI0162/SinShader"
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Standard fullforwardshadows addshadow vertex:verticesFunction
+        
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
@@ -54,6 +55,11 @@ Shader "CI0162/SinShader"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+        }
+
+        fixed4 frag (Input i) : SV_Target
+        {
+            return i.vertex.x;
         }
         ENDCG
     }
